@@ -47,3 +47,28 @@ const myArray = [4, [[3, [[2, [1, 2, 3, 4, 5]]]]]];
 
 // Using the trampoline to safely execute the flatten function
 console.log(trampoline(flattenArray, myArray)); 
+
+//part3
+let textContainer = document.getElementById('txt-container');
+
+function calculatePrimeNumbers(n)
+{
+    for(let i =2; i< n; i++)
+    {
+        let isPrime = true;
+        for (let j = 2; j < i; j++) {
+            if (i % j === 0) {
+                isPrime = false;
+                break; 
+            }
+        }
+        if (isPrime) {         
+                textContainer.textContent += i + " "; 
+        }
+    }
+    setTimeout(() => {
+        alert("The calculation is finished.");
+    }, 5000); 
+}
+
+calculatePrimeNumbers(10000);
