@@ -1,19 +1,49 @@
 //Part 1: Stack Overflow
 let counter = 0;
 
-function incrementCounter()
-{
+function incrementCounter() {
     counter++;
     console.log(counter);
     incrementCounter();
 }
-try
-{
+try {
     incrementCounter();
 }
-catch(error)
-{
+catch (error) {
     console.error(error);
     console.error("Counter value at the time of error:", counter);
-    
+
 }
+
+//part2 Trampolines
+const trampoline = (func, ...args) => {
+    let result = func(...args);
+    while (typeof result === "function") {
+        result = result();
+    }
+    return result;
+};
+
+const flattenArray = (myArray) => {
+    let result = [];
+
+
+    const flatten = (arr) => {
+        for (let item of arr) {
+            if (Array.isArray(item)) {
+                return () => flatten(item);
+            } else {
+                result.push(item);
+            }
+        }
+        return result;
+    };
+
+    return flatten(myArray);
+};
+
+// Input array with deep nesting
+const myArray = [4, [[3, [[2, [1, 2, 3, 4, 5]]]]]];
+
+// Using the trampoline to safely execute the flatten function
+console.log(trampoline(flattenArray, myArray)); 
